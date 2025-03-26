@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	<h:head><title>Pedra, Papel, Tesoura</title></h:head>
+	<h:body>
+		<h:form id="formulario">
+			 <p:messages id="messages" showDetail="true" closable="true">
+	            <p:autoUpdate/>
+	        </p:messages>
+			<p:panelGrid columns="2">
+				<p:outputLabel value="Nome Jogador 1"/>
+				<p:inputText value="#{jogadaBean.jogada.jogador1}"
+							required="true"
+							requiredMessage="O nome é obrigatório"
+				/>
+				
+				<p:outputLabel value="Nome Jogador 2"/>
+				<p:inputText value="#{jogadaBean.jogada.jogador2}"
+							required="true"
+							requiredMessage="O nome é obrigatório"
+				/>
+				
+				
+				<p:outputLabel value="Jogada jogador1"/>
+				<p:selectOneMenu value="#{jogadaBean.jogada.jogada1}"
+								required="true"
+								requiredMessage="A escolha é obrigatória."
+				>
+					<f:selectItem itemValue="Pedra" itemLabel="Pedra"/>
+					<f:selectItem itemValue="Papel" itemLabel="Papel"/>
+					<f:selectItem itemValue="Tesoura" itemLabel="Tesoura"/>
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="Jogada jogador2"/>
+				<p:selectOneMenu value="#{jogadaBean.jogada.jogada2}"
+								required="true"
+								requiredMessage="A escolha é obrigatória."
+				>
+					<f:selectItem itemValue="Pedra" itemLabel="Pedra"/>
+					<f:selectItem itemValue="Papel" itemLabel="Papel"/>
+					<f:selectItem itemValue="Tesoura" itemLabel="Tesoura"/>
+				</p:selectOneMenu>
+				
+				<p:commandButton value="Salvar" action="#{jogadaBean.salvar()}" update="formulario"/>
+				<p:link outcome="listagem" value="Listar"/>
+				
+			</p:panelGrid>
+		</h:form>
+	</h:body>
+
+</html>

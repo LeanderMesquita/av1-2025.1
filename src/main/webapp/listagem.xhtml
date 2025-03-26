@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head><title>Resultados</title></h:head>
+<h:body>
+
+    
+    <h:form id="formulario">
+
+        <p:messages id="messages" showDetail="true" closable="true">
+            <p:autoUpdate/>
+        </p:messages>
+
+        <p:link outcome="index" value="Voltar" />
+        
+
+        <p:dataTable value="#{jogadaBean.jogadas}" var="jogada" editable="true">
+            <p:column headerText="Nome jogador1">
+                <p:outputLabel value="#{jogada.jogador1}" />
+            </p:column>
+            <p:column headerText="Nome jogador2">
+                <p:outputLabel value="#{jogada.jogador2}" />
+            </p:column>
+            <p:column headerText="Jogada jogador1">
+                <p:outputLabel value="#{jogada.jogada1}" />
+            </p:column>
+            <p:column headerText="Jogada jogador2">
+                <p:outputLabel value="#{jogada.jogada2}" />
+            </p:column>
+            <p:column headerText="Resultado">
+                <p:outputLabel value="#{jogada.resultado}" />
+            </p:column>
+            <p:column headerText="Data do jogo">
+                <p:outputLabel value="#{jogada.data}" />
+            </p:column>
+
+            <p:column headerText="Ações">
+                <p:commandButton value="Editar"
+                                 update=":formulario :dialogEditar"
+                                 oncomplete="PF('dialogEditar').show()"
+                                 actionListener="#{jogadaBean.prepararAtualizacao(jogada)}"
+                                 style="margin-right:10px"/>
+
+                <p:commandButton value="Deletar"
+                                 update=":formulario"
+                                 action="#{jogadaBean.deletar(jogada)}"
+                                 onclick="return confirm('Tem certeza que deseja deletar esta jogada?');" />
+            </p:column>
+        </p:dataTable>
+
+    </h:form>
+   
+    <p:dialog header="Atualizar Usuário" widgetVar="dialogEditar" modal="true" id="dialogEditar" resizable="false" appendTo="@(body)" closeOnEscape="true">
+        <h:form id="editarjogadaForm">
+        
+        	<h:inputHidden id="id" value="#{jogadaBean.jogada.id}" />
+            <h:panelGrid columns="2" cellpadding="5">
+            	
+                <h:outputLabel for="nomeJogador1" value="Nome jogador1:" />
+                <p:inputText id="nomeJogador1" value="#{jogadaBean.jogada.jogador1}" label="Nome" />
+                
+                <h:outputLabel for="nomeJogador2" value="Nome jogador2:" />
+                <p:inputText id="nomeJogador2" value="#{jogadaBean.jogada.jogador2}" label="Nome" />
+                
+            </h:panelGrid>
+			
+            <p:commandButton value="Atualizar" update=":formulario" action="#{jogadaBean.atualizar}" oncomplete="PF('dialogEditar').hide()" />
+        </h:form>
+    </p:dialog>
+
+</h:body>
+</html>
